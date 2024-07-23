@@ -1,5 +1,5 @@
 """
-URL configuration for restAPI project.
+URL configuration for homelander project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -14,15 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from movies.views import MovieViewSet
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-
-router = DefaultRouter()
-router.register(r'movies', MovieViewSet)
+from rest_framework import routers 
+from memes.views import MemeViewSet
+from django.conf.urls.static import static
+from django.conf import settings
+router = routers.DefaultRouter()
+router.register('Meme', MemeViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('admin/', admin.site.urls),
-]
+    path('', include(router.urls)),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

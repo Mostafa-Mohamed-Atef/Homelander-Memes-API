@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Memes(models.Model):
@@ -14,6 +15,5 @@ class Memes(models.Model):
     episode = models.PositiveSmallIntegerField(null=True, blank=True)
     tags = models.CharField(max_length=225,null=True, blank=True)
 
-
     #to know which user added this 
-    # user = models.ForeignKey()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='memes', null=True, blank=True)
